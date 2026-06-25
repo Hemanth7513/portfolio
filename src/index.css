@@ -1,0 +1,762 @@
+/* ================================================================
+   yeqq.com.tr DESIGN SYSTEM TOKENS
+   ================================================================ */
+:root {
+  --bg: #f8f8f8;
+  --ink: #111;
+  
+  /* Grayscale system */
+  --wb50: #f8f8f8;
+  --wb100: #e8e8e8;
+  --wb200: #dcdcdc;
+  --wb300: #bdbdbd;
+  --wb400: #989898;
+  --wb500: #7c7c7c;
+  --wb600: #656565;
+  --wb950: #111;
+
+  /* Font options */
+  --font-sans: 'Outfit', system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================================================================
+   GLOBAL RESET & BASICS
+   ================================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s var(--ease);
+}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* ================================================================
+   FLOATING ISLAND NAVBAR (yeqq.com.tr style)
+   ================================================================ */
+.nav-island-container {
+  position: fixed;
+  top: 0.9em;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.nav-island {
+  pointer-events: auto;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 2em;
+  padding: 0.3em 0.8em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 14em;
+  height: 2.6em;
+  transition: all 0.45s var(--ease);
+  box-shadow: 0 0.5em 2em rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.nav-island[data-open="true"] {
+  width: 28em;
+  height: auto;
+  padding: 1em 1.5em;
+  border-radius: 1.5em;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1em;
+}
+
+@media (max-width: 480px) {
+  .nav-island[data-open="true"] {
+    width: 90vw;
+  }
+}
+
+.nav-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-logo {
+  font-weight: 600;
+  font-size: 0.95em;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.nav-toggle-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85em;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  border-radius: 1em;
+  transition: color 0.2s var(--ease);
+}
+.nav-toggle-btn:hover {
+  color: #fff;
+}
+
+.nav-expanded-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease);
+  padding: 0.5em 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-island[data-open="true"] .nav-expanded-links {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-link-item {
+  color: rgba(255,255,255,0.65);
+  font-size: 1.1em;
+  font-weight: 300;
+  display: block;
+  padding: 0.3em 0;
+  transition: color 0.2s var(--ease), padding-left 0.2s var(--ease);
+}
+
+.nav-link-item:hover {
+  color: #fff;
+  padding-left: 0.2em;
+}
+
+/* Backdrop blur overlay */
+.nav-backdrop-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(248, 248, 248, 0.4);
+  backdrop-filter: blur(0.4em);
+  -webkit-backdrop-filter: blur(0.4em);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.nav-backdrop-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ================================================================
+   HERO SECTION (yeqq.com.tr style)
+   ================================================================ */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--bg);
+}
+
+.hero-marquee-container {
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.hero-marquee-row {
+  display: flex;
+  white-space: nowrap;
+  font-size: 12.5vw;
+  font-weight: 700;
+  text-transform: lowercase;
+  color: rgba(17, 17, 17, 0.04);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+/* Central portrait wrapper */
+.hero-image-wrapper {
+  position: relative;
+  z-index: 2;
+  width: min(60vw, 420px);
+  height: min(60vh, 520px);
+  background: #e0d8cc;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 2rem 5rem rgba(0,0,0,0.08);
+  transition: transform 0.1s ease-out;
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 12%;
+  transition: transform 0.6s var(--ease);
+}
+
+.hero-image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-size: 0.85em;
+  color: var(--wb600);
+  letter-spacing: 0.05em;
+}
+
+/* ================================================================
+   PAGE CONTENT WRAPPERS & GRID
+   ================================================================ */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  border-top: 1px solid var(--wb100);
+}
+
+.section-label {
+  font-size: 0.85em;
+  font-weight: 500;
+  color: var(--wb400);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 3rem;
+}
+
+/* ================================================================
+   ABOUT / BIO SECTION (yeqq.com.tr lists)
+   ================================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.bio-paragraph {
+  font-size: 1.25em;
+  line-height: 1.6;
+  color: var(--wb600);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.bio-paragraph strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.skills-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.skill-category-item {
+  border-bottom: 1px solid var(--wb100);
+  padding-bottom: 1.5rem;
+}
+
+.skill-category-title {
+  font-size: 1em;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.skill-category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-badge {
+  font-size: 0.85em;
+  font-weight: 300;
+  background: var(--wb50);
+  border: 1px solid var(--wb100);
+  color: var(--wb600);
+  padding: 0.3em 0.8em;
+  border-radius: 2em;
+  transition: all 0.2s var(--ease);
+}
+.skill-badge:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* ================================================================
+   PROJECTS SECTION (yeqq.com.tr Staggered asymmetric layout)
+   ================================================================ */
+.projects-staggered-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  row-gap: 8rem;
+  column-gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .projects-staggered-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+}
+
+.project-card-wrapper {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Alternate positioning to mimic yeqq's staggered feel */
+.project-card-wrapper:nth-child(4n+1) {
+  grid-column: 2 / span 5;
+}
+.project-card-wrapper:nth-child(4n+2) {
+  grid-column: 8 / span 4;
+  margin-top: 4rem;
+}
+.project-card-wrapper:nth-child(4n+3) {
+  grid-column: 1 / span 5;
+}
+.project-card-wrapper:nth-child(4n+4) {
+  grid-column: 7 / span 5;
+  margin-top: -2rem;
+}
+
+@media (max-width: 900px) {
+  .project-card-wrapper:nth-child(n) {
+    margin-top: 0 !important;
+  }
+}
+
+.project-card-image-box {
+  aspect-ratio: 4/3;
+  background: var(--wb100);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--wb100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  transition: transform 0.4s var(--ease);
+}
+
+.project-card-wrapper:hover .project-card-image-box {
+  transform: translateY(-0.5rem);
+}
+
+.project-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.project-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.project-card-title {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.project-card-sub {
+  font-size: 0.85em;
+  color: var(--wb400);
+}
+
+.project-card-desc {
+  font-size: 0.95em;
+  color: var(--wb600);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.project-card-tag {
+  font-size: 0.75em;
+  background: var(--wb50);
+  border: 1px solid var(--wb100);
+  color: var(--wb400);
+  padding: 0.2em 0.6em;
+  border-radius: 1em;
+}
+
+.project-links {
+  display: flex;
+  gap: 0.6rem;
+  align-self: flex-start;
+}
+
+.project-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1px solid var(--wb100);
+  color: var(--wb600);
+  transition: all 0.2s var(--ease);
+}
+.project-link-btn:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.project-status-tag {
+  font-size: 0.7em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2em 0.6em;
+  border-radius: 0.25rem;
+  background: var(--wb100);
+  color: var(--wb600);
+}
+
+/* ================================================================
+   JOURNEY SECTION (yeqq.com.tr clean flat lists)
+   ================================================================ */
+.journey-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.journey-row {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 2.5fr 1.5fr;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--wb100);
+  align-items: baseline;
+  transition: background 0.3s var(--ease), padding-left 0.3s var(--ease);
+}
+
+.journey-row:hover {
+  background: rgba(17, 17, 17, 0.01);
+  padding-left: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .journey-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1.5rem 0;
+  }
+}
+
+.journey-number {
+  font-size: 0.85em;
+  color: var(--wb400);
+  font-family: monospace;
+}
+
+.journey-title-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.journey-title {
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+.journey-subtitle {
+  font-size: 0.85em;
+  color: var(--wb400);
+}
+
+.journey-desc {
+  font-size: 0.95em;
+  color: var(--wb600);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.journey-date {
+  font-size: 0.85em;
+  color: var(--wb400);
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .journey-date {
+    text-align: left;
+  }
+}
+
+/* ================================================================
+   CONTACT SECTION
+   ================================================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.contact-direct-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-direct-link {
+  font-size: 1.4em;
+  font-weight: 300;
+  color: var(--wb600);
+  transition: color 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.contact-direct-link:hover {
+  color: var(--ink);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85em;
+  color: var(--wb400);
+}
+
+.form-group input,
+.form-group textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--wb200);
+  padding: 0.8rem 0;
+  font-family: var(--font-sans);
+  font-size: 1.1em;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.3s var(--ease);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--ink);
+}
+
+.submit-btn {
+  align-self: flex-start;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-family: var(--font-sans);
+  font-size: 1em;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.submit-btn:hover {
+  background: #222;
+  transform: translateY(-0.1rem);
+}
+
+/* ================================================================
+   FOOTER (yeqq.com.tr style)
+   ================================================================ */
+.footer-section {
+  background-color: var(--ink);
+  color: #fff;
+  padding: 6rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  z-index: 2;
+}
+
+.footer-email-link {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 300;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s var(--ease);
+}
+.footer-email-link:hover {
+  color: #fff;
+}
+
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.footer-link-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link-title {
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.footer-link-item {
+  font-size: 0.95em;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s var(--ease);
+}
+.footer-link-item:hover {
+  color: #fff;
+}
+
+/* Giant wordmark bottom alignment */
+.footer-wordmark {
+  font-size: min(16vw, 24vh);
+  font-weight: 800;
+  text-align: center;
+  text-transform: lowercase;
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: -0.05em;
+  user-select: none;
+  margin-top: auto;
+  pointer-events: none;
+}
+
+.footer-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 2rem;
+  z-index: 2;
+}
+
+/* ================================================================
+   SCROLL PROGRESS TRACKER BAR
+   ================================================================ */
+.scroll-progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--wb100);
+  z-index: 1001;
+}
+
+.scroll-progress-fill {
+  height: 100%;
+  background: var(--ink);
+  width: 0%;
+  transition: width 0.1s ease-out;
+}
